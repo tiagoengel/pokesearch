@@ -1,11 +1,21 @@
 (ns pokesearch.handler
   (:require [compojure.api.sweet :refer :all]
+            [pokesearch.exception :as ex]
             [ring.util.http-response :refer :all]
-            [schema.core :as s]))
+            [schema.core :as s]
+            [pokesearch.pokeapi :as api]))
+
+(s/defschema Pokemon
+  {:name s/Str
+   :description s/Str
+   :image s/Str
+   :attack s/Int
+   :defense s/Int})
 
 (def app
   (api
     {:format {:formats [:json]}
+     :exceptions {:handlers ex/handlers}
      :swagger {:ui "/docs"
                :spec "/swagger.json"
                :data {:info {:title "Pokesearch"
@@ -16,6 +26,6 @@
       :tags ["api"]
 
       (GET "/:name" [name]
-        :return {:result s/Str}
+        :return Pokemon
         :summary "find a pokemon by its name"
-        (ok {:result name})))))
+        (ok (api/find-pokemon-by-name name))))))

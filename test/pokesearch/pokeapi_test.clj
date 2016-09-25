@@ -1,7 +1,7 @@
 (ns pokesearch.pokeapi-test
-  (:use pokesearch.test-helper)
-  (:use clj-http.fake)
   (:require [clojure.test :refer :all]
+            [pokesearch.test-helper :refer :all]
+            [clj-http.fake :refer :all]
             [clj-http.client :as c]
             [pokesearch.pokeapi :refer :all]))
 
@@ -46,6 +46,6 @@
         (is (not (nil? response)))
         (is (= (-> response :name) "pikachu"))
         (is (= (-> response :image) "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"))
-        (is (= (-> response :atack) 55))
+        (is (= (-> response :attack) 55))
         (is (= (-> response :defense) 40))
         (is (= (-> response :description) "This Pokémon has electricity-storing pouches on its cheeks.\nThese appear to become electrically charged during the night\nwhile Pikachu sleeps. It occasionally discharges electricity\nwhen it is dozy after waking up."))))))

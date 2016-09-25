@@ -1,5 +1,4 @@
 (ns pokesearch.pokeapi
-  (:import java.net.URLEncoder)
   (:require [clj-http.client :as client]
             [clojure.string :as str]))
 
@@ -55,6 +54,6 @@
         spicie (fetch-spicie-by-name name)]
     {:name name
      :image (get-pokemon-image pokemon)
-     :atack (get-pokemon-stat pokemon "attack")
+     :attack (get-pokemon-stat pokemon "attack")
      :defense (get-pokemon-stat pokemon "defense")
      :description (get-spicie-description spicie)}))
