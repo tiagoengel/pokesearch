@@ -1,0 +1,5 @@
+{:flavor_text_entries
+  [{:flavor_text "primeira desc" :language {:name "pt_BR"}}
+   {:flavor_text "first desc"    :language {:name "en"}}
+   {:flavor_text "second desc"   :language {:name "en"}}
+   {:flavor_text "third desc"    :language {:name "en"}}]}

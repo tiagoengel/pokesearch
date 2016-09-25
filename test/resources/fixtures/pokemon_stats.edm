@@ -1,0 +1,4 @@
+{:stats
+  [{:stat {:name "attack"}  :base_stat 50}
+   {:stat {:name "speed"}   :base_stat 90}
+   {:stat {:name "defense"} :base_stat 40}]}

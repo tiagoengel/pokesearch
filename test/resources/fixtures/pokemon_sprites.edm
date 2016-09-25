@@ -1,0 +1,3 @@
+{:sprites
+  {:front_default "front.jpg"
+   :back_default "back.jpg"}}
