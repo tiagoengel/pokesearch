@@ -3,7 +3,7 @@
             [pokesearch.exception :as ex]
             [ring.util.http-response :refer :all]
             [schema.core :as s]
-            [pokesearch.pokeapi :as api]))
+            [pokesearch.core :refer [find-pokemon-by-name]]))
 
 (s/defschema Pokemon
   {:name s/Str
@@ -28,4 +28,4 @@
       (GET "/:name" [name]
         :return Pokemon
         :summary "find a pokemon by its name"
-        (ok (api/find-pokemon-by-name name))))))
+        (ok (find-pokemon-by-name name))))))
