@@ -1,11 +1,12 @@
 (ns pokesearch.exception-test
   (:require [pokesearch.exception :refer :all]
             [ring.util.http-status :as status]
-            [clojure.test :refer :all]))
+            [clojure.test :refer :all])
+  (:import  [pokesearch.exception RequestError]))
 
 (defn build-response
   [status]
-  {:status status :body {:message (status/get-name status)}})
+  {:status status :body (->RequestError status (status/get-name status))})
 
 (deftest pokesearch-default-handler-test
   (testing "maps exceptions to the correct http status"

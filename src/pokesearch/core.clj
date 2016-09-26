@@ -1,5 +1,16 @@
 (ns pokesearch.core
-  (:require [pokesearch.pokeapi :as api]))
+  (:require [pokesearch.pokeapi :as api]
+            [pokesearch.jsonapi :as jsonapi]
+            [schema.core :as s]))
+
+(s/defrecord Pokemon [name :- s/Str,
+                      description :- s/Str,
+                      image :- s/Str,
+                      attack :- s/Int,
+                      defense :- s/Int]
+  jsonapi/JsonAPI
+  (->jsonapi [this]
+    {:data {:type "pokemon" :id (str name) :attributes this}}))
 
 (defn- eq-in
   [data path val]
@@ -32,8 +43,8 @@
   [name]
   (let [pokemon (api/fetch-pokemon-by-name name)
         specie (api/fetch-specie-by-name name)]
-    {:name name
-     :image (get-pokemon-image pokemon)
-     :attack (get-pokemon-stat pokemon "attack")
-     :defense (get-pokemon-stat pokemon "defense")
-     :description (get-specie-description specie)}))
+    (map->Pokemon {:name (:name pokemon)
+                   :image (get-pokemon-image pokemon)
+                   :attack (get-pokemon-stat pokemon "attack")
+                   :defense (get-pokemon-stat pokemon "defense")
+                   :description (get-specie-description specie)})))

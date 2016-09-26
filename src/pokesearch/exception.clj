@@ -1,7 +1,13 @@
 (ns pokesearch.exception
   (:require [compojure.api.exception :as ex]
             [ring.util.http-status :as status]
-            [clojure.tools.logging :as log]))
+            [clojure.tools.logging :as log]
+            [pokesearch.jsonapi :as jsonapi]))
+
+(defrecord RequestError [status message]
+  jsonapi/JsonAPI
+  (->jsonapi [this]
+    {:errors [{:status (str status) :title message}]}))
 
 (defn pokesearch-default-handler
   "Maps excetions that have a `status` property to the correct http error.
@@ -12,10 +18,7 @@
    (let [status (get data :status 500)]
      (if (and log-ex (= 500 status))
        (log/error e (.getMessage e)))
-     {:status status :body {:message (status/get-name status)}})))
+     {:status status :body (->RequestError status (status/get-name status))})))
 
 (def handlers
-  {::ex/request-validation ex/request-validation-handler
-   ::ex/request-parsing ex/request-parsing-handler
-   ::ex/response-validation ex/response-validation-handler
-   ::ex/default pokesearch-default-handler})
+  {::ex/default pokesearch-default-handler})

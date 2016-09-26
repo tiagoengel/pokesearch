@@ -1,6 +1,5 @@
 (ns pokesearch.pokeapi
-  (:require [clj-http.client :as client]
-            [clojure.string :as str]))
+  (:require [clj-http.client :as client]))
 
 (def base-url "http://pokeapi.co/api/v2")
 
