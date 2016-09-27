@@ -43,8 +43,9 @@
   "Finds a pokemon by its name"
   [name]
   (when-let [normalized-name (some-> name lower-case)]
-    (let [pokemon (api/fetch-pokemon-by-name normalized-name)
-          specie (api/fetch-specie-by-name normalized-name)]
+    (let [requests [(future (api/fetch-pokemon-by-name normalized-name))
+                    (future (api/fetch-specie-by-name normalized-name))]
+          [pokemon specie] (map deref requests)]
       (map->Pokemon {:name (:name pokemon)
                      :image (get-pokemon-image pokemon)
                      :attack (get-pokemon-stat pokemon "attack")
