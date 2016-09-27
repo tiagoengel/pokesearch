@@ -1,0 +1,5 @@
+{
+  "name": "Clojure pokeapi",
+  "description": "A rest api for searching pokémons!",
+  "image": "heroku/clojure"
+}
