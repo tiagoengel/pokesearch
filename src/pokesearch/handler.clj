@@ -1,6 +1,7 @@
 (ns pokesearch.handler
   (:require [compojure.api.sweet :refer :all]
             [ring.util.http-response :refer :all]
+            [ring.util.response :refer [redirect]]
             [pokesearch.exception :as ex]
             [pokesearch.jsonapi :as jsonapi]
             [pokesearch.core :refer :all])
@@ -15,6 +16,8 @@
                :data {:info {:title "Pokesearch"
                              :description "Pokesearch API"}
                       :tags [{:name "api", :description ""}]}}}
+
+    (GET "/" [] (redirect "/docs"))
 
     (context "/api" []
       :tags ["api"]
