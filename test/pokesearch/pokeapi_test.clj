@@ -8,9 +8,9 @@
 (defn uuid [] (str (java.util.UUID/randomUUID)))
 
 (deftest pokeapi-url-test
-  (is (= (url "pokemon" 1)) (str "http://pokeapi.co/api/v2/pokemon/" 1))
-  (is (= (url "pokemon" "pikachu")) (str "http://pokeapi.co/api/v2/pokemon/pikachu"))
-  (is (= (url "pokemon" 1 2 3 4)) (str "http://pokeapi.co/api/v2/pokemon/" 1 2 3 4)))
+  (is (= (url "pokemon" 1) "http://pokeapi.co/api/v2/pokemon/1"))
+  (is (= (url "pokemon" "pikachu") "http://pokeapi.co/api/v2/pokemon/pikachu"))
+  (is (= (url "pokemon" 1 2 3 4) "http://pokeapi.co/api/v2/pokemon/1/2/3/4")))
 
 (deftest pokeapi-execute-request-test
   (testing "consistent cache over multiple threads"

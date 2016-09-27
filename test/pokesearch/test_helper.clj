@@ -1,5 +1,4 @@
 (ns pokesearch.test-helper
-  (:use clj-http.fake)
   (:require [clojure.java.io :as io]
             [pokesearch.pokeapi :as papi]))
 

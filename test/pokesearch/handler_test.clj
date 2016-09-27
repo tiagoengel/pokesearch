@@ -22,7 +22,7 @@
       {"http://pokeapi.co/api/v2/pokemon/api-test" (fixture-mock "pikachu.json")
        "http://pokeapi.co/api/v2/pokemon-species/api-test" (fixture-mock "pikachu_specie.json")}
 
-      (let [response (app (-> (request :get "/api/api-test")))
+      (let [response (app (request :get "/api/api-test"))
             pokemon  (parse-body (:body response))]
         (is (= 200 (:status response)))
         (is (= pokemon pikachu)))
@@ -41,7 +41,7 @@
     (with-fake-routes-in-isolation
       {"http://pokeapi.co/api/v2/pokemon/not-found" (fn [rewq] {:status 404 :body "not found"})}
 
-      (let [response (app (-> (request :get "/api/not-found")))
+      (let [response (app (request :get "/api/not-found"))
             body     (parse-body (:body response))]
         (is (= 404 (:status response)))
         (is (= "Not Found" (:message body))))
