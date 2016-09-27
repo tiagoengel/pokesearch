@@ -1,9 +1,14 @@
 (ns pokesearch.core-test
   (:require [clojure.test :refer :all]
-            [pokesearch.test-helper :refer :all]
             [clj-http.fake :refer :all]
             [clj-http.client :as c]
-            [pokesearch.core :refer :all]))
+            [slingshot.test :refer :all]
+            [pokesearch.core :refer :all]
+            [pokesearch.test-helper :refer :all]
+            [pokesearch.handler-test :as htest])
+  (:import  [pokesearch.core Pokemon]))
+
+(def pikachu (map->Pokemon htest/pikachu))
 
 (deftest get-specie-description-test
   (testing "get the first english description when available"
@@ -33,12 +38,10 @@
 (deftest find-pokemon-test
   (with-fake-routes-in-isolation
     {"http://pokeapi.co/api/v2/pokemon/find-pokemon-test" (fixture-mock "pikachu.json")
-     "http://pokeapi.co/api/v2/pokemon-species/find-pokemon-test" (fixture-mock "pikachu_specie.json")}
+     "http://pokeapi.co/api/v2/pokemon-species/find-pokemon-test" (fixture-mock "pikachu_specie.json")
+     "http://pokeapi.co/api/v2/pokemon/find-pokemon-test-not-found" (fn [req] {:status 404 :body "Not found"})}
 
-    (let [response (find-pokemon-by-name "find-pokemon-test")]
-      (is (not (nil? response)))
-      (is (= (-> response :name) "pikachu"))
-      (is (= (-> response :image) "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"))
-      (is (= (-> response :attack) 55))
-      (is (= (-> response :defense) 40))
-      (is (= (-> response :description) "This Pokémon has electricity-storing pouches on its cheeks.\nThese appear to become electrically charged during the night\nwhile Pikachu sleeps. It occasionally discharges electricity\nwhen it is dozy after waking up.")))))
+    (is (= pikachu (find-pokemon-by-name "find-pokemon-test")))
+    (is (= pikachu (find-pokemon-by-name "FinD-POKEMON-test")))
+    (is (nil? (find-pokemon-by-name nil)))
+    (is (thrown+? [:status 404] (find-pokemon-by-name "find-pokemon-test-not-found")))))

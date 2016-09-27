@@ -1,7 +1,8 @@
 (ns pokesearch.core
-  (:require [pokesearch.pokeapi :as api]
-            [pokesearch.jsonapi :as jsonapi]
-            [schema.core :as s]))
+  (:require [schema.core :as s]
+            [clojure.string :refer [lower-case]]
+            [pokesearch.pokeapi :as api]
+            [pokesearch.jsonapi :as jsonapi]))
 
 (s/defrecord Pokemon [name        :- s/Str,
                       description :- s/Str,
@@ -41,10 +42,11 @@
 (defn find-pokemon-by-name
   "Finds a pokemon by its name"
   [name]
-  (let [pokemon (api/fetch-pokemon-by-name name)
-        specie (api/fetch-specie-by-name name)]
-    (map->Pokemon {:name (:name pokemon)
-                   :image (get-pokemon-image pokemon)
-                   :attack (get-pokemon-stat pokemon "attack")
-                   :defense (get-pokemon-stat pokemon "defense")
-                   :description (get-specie-description specie)})))
+  (when-let [normalized-name (some-> name lower-case)]
+    (let [pokemon (api/fetch-pokemon-by-name normalized-name)
+          specie (api/fetch-specie-by-name normalized-name)]
+      (map->Pokemon {:name (:name pokemon)
+                     :image (get-pokemon-image pokemon)
+                     :attack (get-pokemon-stat pokemon "attack")
+                     :defense (get-pokemon-stat pokemon "defense")
+                     :description (get-specie-description specie)}))))

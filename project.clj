@@ -2,6 +2,7 @@
   :description "FIXME: write description"
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [metosin/compojure-api "1.1.8"]
+                 [slingshot "0.12.2"]
                  [org.clojure/tools.logging "0.3.1"]
                  [org.clojure/core.cache "0.6.4"]
                  [clj-http "2.3.0"]]
