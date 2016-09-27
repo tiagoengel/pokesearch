@@ -17,7 +17,9 @@
                              :description "Pokesearch API"}
                       :tags [{:name "api", :description ""}]}}}
 
-    (GET "/" [] (redirect "/docs"))
+    (GET "/" []
+      :no-doc true
+      (redirect "/docs"))
 
     (context "/api" []
       :tags ["api"]
