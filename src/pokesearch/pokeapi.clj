@@ -4,12 +4,12 @@
 
 (def ^{:private true
        :doc "A time to leave cache configured to ensure we are following
-       the pokeapi fair use policy and not doing more that 300 requests a day
+       the pokeapi fair use policy and not doing more than 300 requests a day
        for each resource"}
   Cache (atom (cache/ttl-cache-factory {} :ttl (/ 86400000 250))))
 
 (defn- get-or-update!
-  "Gets or update a item from the cache.
+  "Gets or update an item from the cache.
   wraps the recommended has-hit-get pattern
   https://github.com/clojure/core.cache/wiki/Using"
   [key func]
