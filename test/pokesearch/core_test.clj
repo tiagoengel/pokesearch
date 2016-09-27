@@ -32,10 +32,10 @@
 
 (deftest find-pokemon-test
   (with-fake-routes-in-isolation
-    {"http://pokeapi.co/api/v2/pokemon/pikachu" (fixture-mock "pikachu.json")
-     "http://pokeapi.co/api/v2/pokemon-species/pikachu" (fixture-mock "pikachu_specie.json")}
+    {"http://pokeapi.co/api/v2/pokemon/find-pokemon-test" (fixture-mock "pikachu.json")
+     "http://pokeapi.co/api/v2/pokemon-species/find-pokemon-test" (fixture-mock "pikachu_specie.json")}
 
-    (let [response (find-pokemon-by-name "pikachu")]
+    (let [response (find-pokemon-by-name "find-pokemon-test")]
       (is (not (nil? response)))
       (is (= (-> response :name) "pikachu"))
       (is (= (-> response :image) "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"))

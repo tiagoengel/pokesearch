@@ -3,6 +3,7 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [metosin/compojure-api "1.1.8"]
                  [org.clojure/tools.logging "0.3.1"]
+                 [org.clojure/core.cache "0.6.4"]
                  [clj-http "2.3.0"]]
   :ring {:handler pokesearch.handler/app}
   :uberjar-name "server.jar"

@@ -19,15 +19,15 @@
 (deftest api-test
   (testing "responds with 200 to a valid pokemon name"
     (with-fake-routes-in-isolation
-      {"http://pokeapi.co/api/v2/pokemon/pikachu" (fixture-mock "pikachu.json")
-       "http://pokeapi.co/api/v2/pokemon-species/pikachu" (fixture-mock "pikachu_specie.json")}
+      {"http://pokeapi.co/api/v2/pokemon/api-test" (fixture-mock "pikachu.json")
+       "http://pokeapi.co/api/v2/pokemon-species/api-test" (fixture-mock "pikachu_specie.json")}
 
-      (let [response (app (-> (request :get "/api/pikachu")))
+      (let [response (app (-> (request :get "/api/api-test")))
             pokemon  (parse-body (:body response))]
         (is (= 200 (:status response)))
         (is (= pokemon pikachu)))
 
-      (let [response (app (-> (request :get "/api/pikachu") (content-type "application/vnd.api+json")))
+      (let [response (app (-> (request :get "/api/api-test") (content-type "application/vnd.api+json")))
             pokemon  (parse-body (:body response))]
         (is (= 200 (:status response)))
         (is (= "application/vnd.api+json; charset=utf-8" (get-in response [:headers "Content-Type"])))

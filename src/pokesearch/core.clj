@@ -3,11 +3,11 @@
             [pokesearch.jsonapi :as jsonapi]
             [schema.core :as s]))
 
-(s/defrecord Pokemon [name :- s/Str,
+(s/defrecord Pokemon [name        :- s/Str,
                       description :- s/Str,
-                      image :- s/Str,
-                      attack :- s/Int,
-                      defense :- s/Int]
+                      image       :- s/Str,
+                      attack      :- s/Int,
+                      defense     :- s/Int]
   jsonapi/JsonAPI
   (->jsonapi [this]
     {:data {:type "pokemon" :id (str name) :attributes this}}))
