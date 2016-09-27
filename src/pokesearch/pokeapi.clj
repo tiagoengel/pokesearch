@@ -3,7 +3,7 @@
             [clojure.core.cache :as cache]))
 
 (def ^{:private true
-       :doc "A time to leave cache configured to ensure we are following
+       :doc "A time to live cache configured to ensure we are following
        the pokeapi fair use policy and not doing more than 300 requests a day
        for each resource"}
   Cache (atom (cache/ttl-cache-factory {} :ttl (/ 86400000 250))))
