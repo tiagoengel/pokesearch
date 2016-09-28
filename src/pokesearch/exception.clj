@@ -12,7 +12,7 @@
 
 (defn pokesearch-default-handler
   "Maps excetions that have a `status` property to the correct http error.
-  If the excetion don't have a `status` property, returns 500"
+  If the exception don't have a `status` property, returns 500"
   ([^Exception e data request]
    (pokesearch-default-handler e data request true))
   ([^Exception e data request log-ex]
