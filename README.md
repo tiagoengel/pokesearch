@@ -1,15 +1,15 @@
 # pokesearch
 
-    A Rest api for finding pokémons!
+> A Rest api for finding pokémons!
 
-Uses the [pokéapi](https://pokeapi.co/) to find pokémons caching
+Uses the [pokéapi](https://pokeapi.co/) to find pokémons, caching
 the resources as needed to abide by its fair use policy.
 
 You can check the API documentation and test the endpoints [here](https://clj-pokesearch.herokuapp.com/docs)
 
 ## Requirements
 
-You will need to have a JDK and leiningen installed to build and
+You will need to have the JDK and leiningen installed to build and
 run this application.
 
 ## Usage
@@ -32,7 +32,7 @@ Search for **pikachu** using `application/vnd.api+json`.
 
 `lein ring server` or `lein run`
 
-During development is better to run `lein ring server` because it supports
+During development is better to use `lein ring server` because it supports
 livereload.
 
 ### Running tests
